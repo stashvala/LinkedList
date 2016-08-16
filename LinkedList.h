@@ -4,6 +4,7 @@
 #include "Node.h"
 #include <iostream>
 #include <gtest/gtest.h>
+#include <stdexcept>
 
 template<class T>
 class LinkedList {
@@ -23,7 +24,7 @@ public:
         }
     }
 
-    void append(T d) {
+    void append(const T d) {
         Node<T> *n = new Node<T>(d, NULL);
 
         if (_head == NULL) { // if list is empty, set list head
@@ -42,7 +43,11 @@ public:
         _size++;
     }
 
-    void remove(T d) {
+    void remove(const T d) {
+        if (_size <= 0) {
+            throw std::out_of_range("LinkedList::remove(T d): List is empty!");
+        }
+
         if (_head->getVal() == d) { // if deleting head, set next element for head
             Node<T> *tmp = _head->getNext();
             delete _head;
@@ -50,8 +55,16 @@ public:
         }
         else { // find element that needs to be deleted
             Node<T> *del = _head;
-            while (del->getNext()->getVal() != d) {
-                del = del->getNext();
+            while (true) {
+                if (del->getNext() == NULL) { // end of list reached
+                    throw std::out_of_range("LinkedList::remove(T d): Element wasn't found!");
+                }
+                else if (del->getNext()->getVal() == d) { // element was found
+                    break;
+                }
+                else {
+                    del = del->getNext(); // move to next element
+                }
             }
 
             Node<T> *tmp = del->getNext();
@@ -63,7 +76,7 @@ public:
         _size--;
     }
 
-    T &operator[](const int index) {
+    T &operator[](const size_t index) {
 
         Node<T> *node = _head;
         for (int i = 0; node != NULL; i++) {
@@ -74,8 +87,7 @@ public:
             node = node->getNext();
         }
 
-        T *t = NULL;
-        return *t;
+        throw std::out_of_range("LinkedList::operator[]: Index doesn't exist in list!");
     }
 
     std::ostream &operator<<(std::ostream &os) {
