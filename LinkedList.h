@@ -79,7 +79,7 @@ public:
     T &operator[](const size_t index) {
 
         Node<T> *node = _head;
-        for (int i = 0; node != NULL; i++) {
+        for (size_t i = 0; node != NULL; i++) {
             if (i == index) {
                 return node->getVal();
             }
@@ -90,19 +90,28 @@ public:
         throw std::out_of_range("LinkedList::operator[]: Index doesn't exist in list!");
     }
 
-    std::ostream &operator<<(std::ostream &os) {
-        os << "List: ";
-
-        Node<T> *n = _head;
-        while (n) {
-            os << n->getVal() << " -> ";
-            n = n->getNext();
+    std::string print() {
+        if (_size <= 0) {
+            throw std::out_of_range("LinkedList::print(): List is empty!");
         }
 
-        return os;
+        std::ostringstream os;
+
+        Node<T> *n = _head;
+        while (true) {
+            os << n->getVal();
+            if (n->getNext() == NULL) {
+                break;
+            }
+            os << " -> ";
+            n = n->getNext();
+
+        }
+
+        return os.str();
     }
 
-    std::size_t size() {
+    std::size_t size() const {
         return _size;
     }
 

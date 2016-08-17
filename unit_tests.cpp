@@ -28,13 +28,6 @@ TEST(testAppend, appendCharToEmptyList) {
     ASSERT_EQ(charList[0], 'a');
 }
 
-TEST(testAppend, appendBoolToEmptyList) {
-    LinkedList<bool> boolList;
-
-    boolList.append(true);
-    ASSERT_EQ(boolList[0], true);
-}
-
 TEST(testAppend, appendSecondInt) {
     LinkedList<int> list;
 
@@ -95,15 +88,6 @@ TEST(testRemove, removeFromOneCharList) {
 
     list.append('a');
     list.remove('a');
-
-    ASSERT_EQ(list.size(), 0);
-}
-
-TEST(testRemove, removeFromOneBoolList) {
-    LinkedList<bool> list;
-
-    list.append(true);
-    list.remove(true);
 
     ASSERT_EQ(list.size(), 0);
 }
@@ -180,3 +164,70 @@ TEST(testRemove, removeDuplicates) {
     ASSERT_EQ(list.size(), 1);
 }
 
+TEST(testPrint, printOneIntList) {
+    LinkedList<int> list;
+    list.append(1);
+
+    ASSERT_EQ(list.print(), "1");
+}
+
+TEST(testPrint, printOneDoubleList) {
+    LinkedList<double> list;
+    list.append(1.5);
+
+    ASSERT_EQ(list.print(), "1.5");
+}
+
+TEST(testPrint, printOneCharList) {
+    LinkedList<char> list;
+    list.append('a');
+
+    ASSERT_EQ(list.print(), "a");
+}
+
+TEST(testPrint, printTwoIntList) {
+    LinkedList<int> list;
+    list.append(1);
+    list.append(2);
+
+    ASSERT_EQ(list.print(), "1 -> 2");
+}
+
+TEST(testPrint, printThreeIntList) {
+    LinkedList<int> list;
+    list.append(1);
+    list.append(2);
+    list.append(3);
+
+    ASSERT_EQ(list.print(), "1 -> 2 -> 3");
+}
+
+TEST(testPrint, printMultipleIntList) {
+    LinkedList<int> list;
+    std::ostringstream os;
+
+    for (int i = 0; i < 100; i++) {
+        list.append(i);
+        os << i;
+        if (i == 99) break;
+
+        os << " -> ";
+    }
+
+    ASSERT_EQ(list.print(), os.str());
+}
+
+TEST(testPrint, printEmptyList) {
+    LinkedList<int> list;
+
+//    ASSERT_EQ(list.print(), "");
+    ASSERT_THROW(list.print(), std::out_of_range);
+}
+
+TEST(testPrint, printDuplicates) {
+    LinkedList<int> list;
+    list.append(1);
+    list.append(1);
+
+    ASSERT_EQ(list.print(), "1 -> 1");
+}

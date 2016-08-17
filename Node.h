@@ -18,12 +18,8 @@ public:
         _next = next;
     }
 
-    Node<T> *getNext() {
+    Node<T> *getNext() const {
         return _next;
-    }
-
-    void setVal(T val) {
-        _val = val;
     }
 
     T &getVal() {
