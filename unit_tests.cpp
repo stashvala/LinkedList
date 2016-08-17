@@ -1,11 +1,5 @@
 #include "LinkedList.h"
 
-TEST(testAppend, createEmptyList) {
-    LinkedList<int> list;
-
-    ASSERT_EQ(list.size(), 0);
-}
-
 TEST(testAppend, appendIntToEmptyList) {
     LinkedList<int> list;
 
@@ -34,8 +28,7 @@ TEST(testAppend, appendSecondInt) {
     list.append(1);
     list.append(2);
 
-    ASSERT_EQ(list[0], 1);
-    ASSERT_EQ(list[1], 2);
+    ASSERT_EQ(list.size(), 2);
 }
 
 TEST(testAppend, appendMultipleInts) {
@@ -54,15 +47,6 @@ TEST(testAppend, appendMultipleInts) {
     }
 
     ASSERT_FALSE(neq);
-}
-
-TEST(testAppend, appendDuplicate) {
-    LinkedList<int> list;
-
-    list.append(1);
-    list.append(1);
-
-    ASSERT_EQ(list[0], list[1]);
 }
 
 TEST(testRemove, removeFromOneIntList) {
@@ -155,15 +139,6 @@ TEST(testRemove, removeNonexistentInt) {
     ASSERT_THROW(list.remove(3), std::out_of_range);
 }
 
-TEST(testRemove, removeDuplicates) {
-    LinkedList<int> list;
-    list.append(1);
-    list.append(1);
-    list.remove(1);
-
-    ASSERT_EQ(list.size(), 1);
-}
-
 TEST(testPrint, printOneIntList) {
     LinkedList<int> list;
     list.append(1);
@@ -173,9 +148,9 @@ TEST(testPrint, printOneIntList) {
 
 TEST(testPrint, printOneDoubleList) {
     LinkedList<double> list;
-    list.append(1.5);
+    list.append(1.618);
 
-    ASSERT_EQ(list.print(), "1.5");
+    ASSERT_EQ(list.print(), "1.618");
 }
 
 TEST(testPrint, printOneCharList) {
@@ -222,12 +197,4 @@ TEST(testPrint, printEmptyList) {
 
 //    ASSERT_EQ(list.print(), "");
     ASSERT_THROW(list.print(), std::out_of_range);
-}
-
-TEST(testPrint, printDuplicates) {
-    LinkedList<int> list;
-    list.append(1);
-    list.append(1);
-
-    ASSERT_EQ(list.print(), "1 -> 1");
 }
