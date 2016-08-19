@@ -1,6 +1,6 @@
 #include "LinkedList.h"
 
-TEST(testAppend, appendIntToEmptyList) {
+TEST(testAppend, appendElementToEmptyList) {
     LinkedList<int> list;
 
     list.append(1);
@@ -8,21 +8,7 @@ TEST(testAppend, appendIntToEmptyList) {
     ASSERT_EQ(list[0], 1);
 }
 
-TEST(testAppend, appendDoubleToEmptyList) {
-    LinkedList<double> doubleList;
-
-    doubleList.append(1.618);
-    ASSERT_EQ(doubleList[0], 1.618);
-}
-
-TEST(testAppend, appendCharToEmptyList) {
-    LinkedList<char> charList;
-
-    charList.append('a');
-    ASSERT_EQ(charList[0], 'a');
-}
-
-TEST(testAppend, appendSecondInt) {
+TEST(testAppend, appendSecondElement) {
     LinkedList<int> list;
 
     list.append(1);
@@ -31,7 +17,7 @@ TEST(testAppend, appendSecondInt) {
     ASSERT_EQ(list.size(), 2);
 }
 
-TEST(testAppend, appendMultipleInts) {
+TEST(testAppend, appendMultipleElements) {
     LinkedList<int> list;
 
     for (int i = 0; i < 100; i++) {
@@ -49,7 +35,7 @@ TEST(testAppend, appendMultipleInts) {
     ASSERT_FALSE(neq);
 }
 
-TEST(testRemove, removeFromOneIntList) {
+TEST(testRemove, removeFromOneElementList) {
     LinkedList<int> list;
 
     list.append(1);
@@ -58,25 +44,7 @@ TEST(testRemove, removeFromOneIntList) {
     ASSERT_EQ(list.size(), 0);
 }
 
-TEST(testRemove, removeFromOneDoubleList) {
-    LinkedList<double> list;
-
-    list.append(1.618);
-    list.remove(1.618);
-
-    ASSERT_EQ(list.size(), 0);
-}
-
-TEST(testRemove, removeFromOneCharList) {
-    LinkedList<char> list;
-
-    list.append('a');
-    list.remove('a');
-
-    ASSERT_EQ(list.size(), 0);
-}
-
-TEST(testRemove, removeSecondFromTwoIntList) {
+TEST(testRemove, removeSecondFromTwoElementList) {
     LinkedList<int> list;
 
     list.append(1);
@@ -87,7 +55,7 @@ TEST(testRemove, removeSecondFromTwoIntList) {
     ASSERT_TRUE(list[0] == 1);
 }
 
-TEST(testRemove, removeFirstFromTwoIntList) {
+TEST(testRemove, removeFirstFromTwoElementList) {
     LinkedList<int> list;
 
     list.append(1);
@@ -111,7 +79,7 @@ TEST(testRemove, removeMiddleFromThreeElementList) {
     ASSERT_EQ(list[1], 3);
 }
 
-TEST(testRemove, removeMultipleInts) {
+TEST(testRemove, removeMultipleElements) {
     LinkedList<int> list;
 
     for (int i = 0; i < 100; i++) {
@@ -131,7 +99,7 @@ TEST(testRemove, removeFromEmptyList) {
     ASSERT_THROW(list.remove(1), std::out_of_range);
 }
 
-TEST(testRemove, removeNonexistentInt) {
+TEST(testRemove, removeNonexistentElement) {
     LinkedList<int> list;
     list.append(1);
     list.append(2);
@@ -139,28 +107,14 @@ TEST(testRemove, removeNonexistentInt) {
     ASSERT_THROW(list.remove(3), std::out_of_range);
 }
 
-TEST(testPrint, printOneIntList) {
+TEST(testPrint, printOneElementList) {
     LinkedList<int> list;
     list.append(1);
 
     ASSERT_EQ(list.print(), "1");
 }
 
-TEST(testPrint, printOneDoubleList) {
-    LinkedList<double> list;
-    list.append(1.618);
-
-    ASSERT_EQ(list.print(), "1.618");
-}
-
-TEST(testPrint, printOneCharList) {
-    LinkedList<char> list;
-    list.append('a');
-
-    ASSERT_EQ(list.print(), "a");
-}
-
-TEST(testPrint, printTwoIntList) {
+TEST(testPrint, printTwoElementList) {
     LinkedList<int> list;
     list.append(1);
     list.append(2);
@@ -168,7 +122,7 @@ TEST(testPrint, printTwoIntList) {
     ASSERT_EQ(list.print(), "1 -> 2");
 }
 
-TEST(testPrint, printMultipleIntList) {
+TEST(testPrint, printMultipleElementList) {
     LinkedList<int> list;
     std::ostringstream os;
 
@@ -189,10 +143,10 @@ TEST(testPrint, printEmptyList) {
     ASSERT_EQ(list.print(), "");
 }
 
-TEST(testSort, sortIntListAscending) {
+TEST(testSort, sortElementListAscending) {
     LinkedList<int> list;
 
-    for(int i = 99; i >= 0; i--) {
+    for (int i = 99; i >= 0; i--) {
         list.append(i);
     }
 
@@ -209,10 +163,10 @@ TEST(testSort, sortIntListAscending) {
     ASSERT_FALSE(neq);
 }
 
-TEST(testSort, sortIntListDescending) {
+TEST(testSort, sortElementListDescending) {
     LinkedList<int> list;
 
-    for(int i = 0; i < 100; i++) {
+    for (int i = 0; i < 100; i++) {
         list.append(i);
     }
 
