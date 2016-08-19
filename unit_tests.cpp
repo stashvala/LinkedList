@@ -168,15 +168,6 @@ TEST(testPrint, printTwoIntList) {
     ASSERT_EQ(list.print(), "1 -> 2");
 }
 
-TEST(testPrint, printThreeIntList) {
-    LinkedList<int> list;
-    list.append(1);
-    list.append(2);
-    list.append(3);
-
-    ASSERT_EQ(list.print(), "1 -> 2 -> 3");
-}
-
 TEST(testPrint, printMultipleIntList) {
     LinkedList<int> list;
     std::ostringstream os;
@@ -195,6 +186,59 @@ TEST(testPrint, printMultipleIntList) {
 TEST(testPrint, printEmptyList) {
     LinkedList<int> list;
 
-//    ASSERT_EQ(list.print(), "");
-    ASSERT_THROW(list.print(), std::out_of_range);
+    ASSERT_EQ(list.print(), "");
+}
+
+TEST(testSort, sortIntListAscending) {
+    LinkedList<int> list;
+
+    for(int i = 99; i >= 0; i--) {
+        list.append(i);
+    }
+
+    list.sort(true);
+
+    bool neq = false;
+    for (size_t i = 0; i < list.size(); i++) {
+        if (list[i] != (int) i) {
+            neq = true;
+            break;
+        }
+    }
+
+    ASSERT_FALSE(neq);
+}
+
+TEST(testSort, sortIntListDescending) {
+    LinkedList<int> list;
+
+    for(int i = 0; i < 100; i++) {
+        list.append(i);
+    }
+
+    list.sort(false);
+
+    bool neq = false;
+    for (size_t i = 0; i < list.size(); i++) {
+        if (list[i] != (int) (list.size() - 1 - i)) {
+            neq = true;
+            break;
+        }
+    }
+
+    ASSERT_FALSE(neq);
+}
+
+TEST(testSort, sortOneElementList) {
+    LinkedList<int> list;
+    list.append(1);
+
+    ASSERT_NO_THROW(list.sort());
+    ASSERT_EQ(list[0], 1);
+}
+
+TEST(testSort, sortEmptyList) {
+    LinkedList<int> list;
+
+    ASSERT_THROW(list.sort(), std::out_of_range);
 }

@@ -45,7 +45,7 @@ public:
 
     void remove(const T d) {
         if (_size <= 0) {
-            throw std::out_of_range("LinkedList::remove(T d): List is empty!");
+            throw std::out_of_range("LinkedList::remove: List is empty!");
         }
 
         if (_head->getVal() == d) { // if deleting head, set next element for head
@@ -92,7 +92,7 @@ public:
 
     std::string print() {
         if (_size <= 0) {
-            throw std::out_of_range("LinkedList::print(): List is empty!");
+            return "";
         }
 
         std::ostringstream os;
@@ -111,41 +111,48 @@ public:
         return os.str();
     }
 
+    void sort(bool ascending = true) {
+        if (_size <= 0) {
+            throw std::out_of_range("LinkedList::sort: List is empty!");
+        }
+
+        bool unsorted = true;
+        while (unsorted) {
+            unsorted = false;
+            Node<T> *current = _head;
+
+            while (current->getNext() != NULL) {
+                Node<T> *next = current->getNext();
+                if (ascending) {
+                    if (current->getVal() > next->getVal()) {
+                        swapVals(current, next);
+                        unsorted = true;
+                    }
+                }
+                else {
+                    if (current->getVal() < next->getVal()) {
+                        swapVals(current, next);
+                        unsorted = true;
+                    }
+                }
+
+                current = next;
+            }
+        }
+    }
+
     std::size_t size() const {
         return _size;
     }
 
 private:
-    // testAppend
-//    FRIEND_TEST(testAppend, appendToEmptyList);
-//    FRIEND_TEST(testAppend, appendSecondElement);
-//    FRIEND_TEST(testAppend, appendMultipleElements);
-//    FRIEND_TEST(testAppend, appendVariousTypes);
-//    FRIEND_TEST(testAppend, appendDuplicate);
-//
-//    // testRemove
-//    FRIEND_TEST(testRemove, removeFromOneElementList);
-//    FRIEND_TEST(testRemove, removeSecondFromTwoElementList);
-//    FRIEND_TEST(testRemove, removeFirstFromTwoElementList);
-//    FRIEND_TEST(testRemove, removeMiddleFromThreeElementList);
-//    FRIEND_TEST(testRemove, removeMultipleElements);
-//    FRIEND_TEST(testRemove, removeFromEmptyList);
-//    FRIEND_TEST(testRemove, removeNonexistentElement);
-//    FRIEND_TEST(testRemove, removeDuplicates);
-//
-//    // testPrint
-//    FRIEND_TEST(testPrint, printOneElementList);
-//    FRIEND_TEST(testPrint, printTwoElementList);
-//    FRIEND_TEST(testPrint, printMultipleElementList);
-//    FRIEND_TEST(testPrint, printEmptyList);
-//
-//    // testCLI
-//    FRIEND_TEST(testCLI, inputPositiveInteger);
-//    FRIEND_TEST(testPrint, inputNegativeInteger);
-//    FRIEND_TEST(testPrint, input64BitInteger);
-//    FRIEND_TEST(testPrint, inputFloat);
-//    FRIEND_TEST(testPrint, inputChar);
-//    FRIEND_TEST(testPrint, inputString);
+
+    void swapVals(Node<T> *n1, Node<T> *n2) {
+        T tempVal = n1->getVal();
+        n1->setVal(n2->getVal());
+        n2->setVal(tempVal);
+    }
+
 };
 
 #endif

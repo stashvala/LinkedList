@@ -22,6 +22,10 @@ public:
         return _next;
     }
 
+    void setVal(T val) {
+        _val = val;
+    }
+
     T &getVal() {
         return _val;
     }
