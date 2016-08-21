@@ -24,8 +24,8 @@ public:
         }
     }
 
-    void append(const T d) {
-        Node<T> *n = new Node<T>(d, NULL);
+    void append(const T val) {
+        Node<T> *n = new Node<T>(val, NULL);
 
         if (_head == NULL) { // if list is empty, set list head
             _head = n;
@@ -43,12 +43,12 @@ public:
         _size++;
     }
 
-    void remove(const T d) {
+    void remove(const T val) {
         if (_size <= 0) {
             throw std::out_of_range("LinkedList::remove: List is empty!");
         }
 
-        if (_head->getVal() == d) { // if deleting head, set next element for head
+        if (_head->getVal() == val) { // if deleting head, set next element for head
             Node<T> *tmp = _head->getNext();
             delete _head;
             _head = tmp;
@@ -57,9 +57,9 @@ public:
             Node<T> *del = _head;
             while (true) {
                 if (del->getNext() == NULL) { // end of list reached
-                    throw std::out_of_range("LinkedList::remove(T d): Element wasn't found!");
+                    throw std::out_of_range("LinkedList::remove: Element wasn't found!");
                 }
-                else if (del->getNext()->getVal() == d) { // element was found
+                else if (del->getNext()->getVal() == val) { // element was found
                     break;
                 }
                 else {
